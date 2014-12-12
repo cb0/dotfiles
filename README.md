@@ -3,13 +3,13 @@ dotfiles
 
 Collection of my personal dotfiles.
 
-##### tmux #####
+### tmux ###
 
 The best terminal multiplexer available, trust me!
 
 .tmux.conf
 
-###### main features ######
+##### main features #####
 
 - based on tmux 1.9
 - uses [tpm][tpm]
@@ -17,7 +17,7 @@ The best terminal multiplexer available, trust me!
 - emacs copy mode
 - split with -|
 
-###### used plugins ######
+##### used plugins #####
 
 - [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible)
 - [tmux-yank](https://github.com/tmux-plugins/tmux-yank)
@@ -25,6 +25,17 @@ The best terminal multiplexer available, trust me!
 - [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
 - [tmux-online-status](https://github.com/tmux-plugins/tmux-online-status)
 
+### zsh ###
+
+My custom zshrc file for use with zsh and oh-my-zsh
+
+##### main features #####
+
+- uses oh-my-zsh
+- uses antigen zsh plugin manager
+- configured for linux use
+- emacs as default editor
+- 
 
 ### License ###
 
