@@ -48,6 +48,7 @@ set -g @tpm_plugins '              \
   tmux-plugins/tmux-copycat	   \
   tmux-plugins/tmux-resurrect      \
   tmux-plugins/tmux-online-status  \
+  tmux-plugins/tmux-sessionist     \
 '
 #tmux new-session
 run-shell '~/.tmux/plugins/tpm/tpm'

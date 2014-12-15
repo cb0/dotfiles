@@ -1,6 +1,7 @@
 [submodule "emacs"]
 	path = emacs
 	url = https://github.com/cb0/memacs
+
 [submodule "zsh/antigen"]
 	path = zsh/antigen
 	url = https://github.com/zsh-users/antigen.git
