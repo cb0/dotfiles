@@ -3,8 +3,7 @@ set-option -g prefix C-a
 unbind %
 bind | split-window -h
 bind - split-window -v
-
-#bind C-a last-window
+bind C-y set-window-option synchronize-panes
 
 # Set status bar
 set -g status-bg black
@@ -20,12 +19,11 @@ setw -g monitor-activity on
 set -g visual-activity on
 
 # Automatically set window title
-setw -g automatic-rename
+setw -g automatic-rename off
 
 # resize
 bind < resize-pane -L 1
 bind > resize-pane -R 1
-
 
 # force a reload of the config file
 unbind r
@@ -40,6 +38,35 @@ set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 # pane movement
 bind-key j command-prompt -p "join pane from:"  "join-pane -s '%%'"
 bind-key s command-prompt -p "send pane to:"  "join-pane -t '%%'"
+
+#set mouse integration to the minimum
+set-option mouse-resize-pane on
+set-option mouse-select-pane on
+set-option mouse-select-window on
+
+#ignore bell in all windows other than current
+set-option bell-action current
+
+#set border style
+set-option pane-active-border-style fg=red,bold,reverse,bg=white,blink
+set-option pane-active-border-style fg=red,bold,reverse,bg=white,blink
+
+#set history limit
+set-option history-limit 1000000
+set-option status-interval 
+
+
+#huge thanks to http://perlstalker.vuser.org/blog/2012/10/16/emacsclient-and-tmux/ for inspiration
+#ssh to host
+bind-key v   command-prompt -p "host" "split-window 'ssh %1'"
+bind-key C-v command-prompt -p "host" "new-window -n %1 'ssh %1'"
+
+#emacsclient
+bind-key e   new-window -n "emacs"  "emacsclient -nw"
+bind-key C-e split-window "emacsclient -nw"
+
+#show man page on "C-<prefix> m"
+bind-key m command-prompt -p "man" "split-window 'exec man %%'"
 
 set -g @tpm_plugins '              \
   tmux-plugins/tpm                 \
