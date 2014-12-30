@@ -71,4 +71,4 @@ alias dusch='du -sch'
 alias mtail='multitail' 
 
 ### source local private config file
-source ./private_local_config
+. ~/.private_local_config
