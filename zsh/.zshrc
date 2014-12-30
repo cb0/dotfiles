@@ -3,7 +3,6 @@ export ZSH=$HOME/.oh-my-zsh
 
 DEFAULT_USER=mpuchalla
 
-
 # auto-update zsh (in days).
 export UPDATE_ZSH_DAYS=5
 
@@ -71,5 +70,5 @@ DISABLE_AUTO_TITLE=true
 alias dusch='du -sch'
 alias mtail='multitail' 
 
-# firefox developer edition
-alias ffd='/home/mpuchalla/bin/firefox/firefox'
+### source local private config file
+source ./private_local_config
