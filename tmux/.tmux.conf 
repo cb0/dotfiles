@@ -74,8 +74,13 @@ set -g @tpm_plugins '              \
   tmux-plugins/tmux-yank       	   \
   tmux-plugins/tmux-copycat	   \
   tmux-plugins/tmux-resurrect      \
+  tmux-plugins/tmux-continuum	   \
   tmux-plugins/tmux-online-status  \
   tmux-plugins/tmux-sessionist     \
 '
+
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '10'
+
 #tmux new-session
 run-shell '~/.tmux/plugins/tpm/tpm'

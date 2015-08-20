@@ -28,8 +28,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 source $ZSH/oh-my-zsh.sh
 
 # wheres my path at
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mpuchalla/bin"
-
+export PATH="/home/mpuchalla/projects/ansible/bin:/home/mpuchalla/.autojump/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mpuchalla/bin"
+export PYTHONPATH=/home/mpuchalla/projects/ansible/lib:
+export MANPATH=/home/mpuchalla/projects/ansible/docs/man:
+export ANSIBLE_INVENTORY=~/ansible_hosts
 # what's my fav. editor
 export EDITOR=/usr/bin/emacs
 
@@ -72,3 +74,8 @@ alias mtail='multitail'
 
 ### source local private config file
 . ~/.private_local_config
+
+unalias ag
+
+export DICPATH="~/.hunspell/dict/"
+#setenv DICPATH ~/.hunspell/dict/
