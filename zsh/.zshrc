@@ -72,6 +72,10 @@ DISABLE_AUTO_TITLE=true
 alias dusch='du -sch'
 alias mtail='multitail' 
 
+function tsh {
+    ssh -t "$1" "tmux attach || tmux"
+}
+
 ### source local private config file
 . ~/.private_local_config
 
