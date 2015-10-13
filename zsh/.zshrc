@@ -75,6 +75,14 @@ alias mtail='multitail'
 function tsh {
     ssh -t "$1" "tmux attach || tmux"
 }
+#tsh uses same autocomplete as ssh
+compdef '_dispatch ssh ssh' tsh
+
+function shSpeedTest {
+    yes | pv | ssh $1 "cat /dev/null" 
+}
+#and shSpeedTest aswell uses the ssh autocomplete
+compdef '_dispatch ssh ssh' shSpeedTest
 
 ### source local private config file
 . ~/.private_local_config
