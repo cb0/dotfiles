@@ -13,7 +13,7 @@ DISABLE_AUTO_TITLE=true
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="false"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -59,6 +59,7 @@ antigen bundle web-search
 antigen bundle sharat87/autoenv
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle thewtex/tmux-mem-cpu-load
 antigen theme agnoster
 antigen apply
 
@@ -87,7 +88,31 @@ compdef '_dispatch ssh ssh' shSpeedTest
 ### source local private config file
 . ~/.private_local_config
 
-unalias ag
+#unalias ag
 
 export DICPATH="~/.hunspell/dict/"
 #setenv DICPATH ~/.hunspell/dict/
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Setting ag as the default source for fzf
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
+export FZF_DEFAULT_OPTS="--extended --cycle"
+
+# fkill - kill process
+fkill() {
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+  if [ "x$pid" != "x" ]
+  then
+    kill -${1:-9} $pid
+  fi
+}
+
+vagrant_list() {
+    tmp=$(cat ~/.vagrant.d/data/machine-index/index | jq '.machines[] | {name, vagrantfile_path, state}' | jq '.name + "," + .state  + "," + .vagrantfile_path'| sed 's/^"\(.*\)"$/\1/'| column -s, -t | sort -rk 2 | fzf );
+    echo $tmp | awk '{ print $1 }'
+}
+
+vs(){ vagrant ssh $(vagrant_list);}
+vup(){ vagrant up $(vagrant_list);}
+vhalt() { vagrant halt $(vagrant_list);}
+

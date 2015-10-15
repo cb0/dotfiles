@@ -8,8 +8,10 @@ bind C-y set-window-option synchronize-panes
 # Set status bar
 set -g status-bg black
 set -g status-fg white
-set -g status-left '#[fg=green]#H'
-set -g status-right 'Online: #{online_status} | #[fg=yellow]#(uptime) | %a %h-%d %H:%M '
+set -g status-left '#[fg=green] #H '
+set -g status-right-length 200
+set -g status-right '#S #[fg=green,bg=black]#(tmux-mem-cpu-load --colors --interval 2) Online: #{online_status} | #[fg=yellow]#(uptime) | #[fg=black,bg=orange] %A %d %h %H:%M (KW:%W)'
+set -g status-interval 2
 
 # Highlight active window
 set-window-option -g window-status-current-bg red
@@ -68,6 +70,9 @@ bind-key C-e split-window "emacsclient -nw"
 #show man page on "C-<prefix> m"
 bind-key m command-prompt -p "man" "split-window 'exec man %%'"
 
+c0-change-interval 10
+c0-change-trigger 20
+
 set -g @tpm_plugins '              \
   tmux-plugins/tpm                 \
   tmux-plugins/tmux-sensible       \
@@ -84,3 +89,5 @@ set -g @continuum-save-interval '10'
 
 #tmux new-session
 run-shell '~/.tmux/plugins/tpm/tpm'
+
+
