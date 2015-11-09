@@ -28,14 +28,17 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 source $ZSH/oh-my-zsh.sh
 
 # wheres my path at
-export PATH="/home/mpuchalla/projects/ansible/bin:/home/mpuchalla/.autojump/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mpuchalla/bin"
+xulrunnerPath=/home/mpuchalla/projects/xulrunner/
+export PATH="/home/mpuchalla/projects/ansible/bin:/home/mpuchalla/.autojump/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mpuchalla/bin:$xulrunnerPath"
 export PYTHONPATH=/home/mpuchalla/projects/ansible/lib:
 export MANPATH=/home/mpuchalla/projects/ansible/docs/man:
 export ANSIBLE_INVENTORY=~/ansible_hosts
 # what's my fav. editor
-export EDITOR=/usr/bin/emacs
+export EDITOR=/home/mpuchalla/projects/dotfiles/zsh/emacs_editor.sh
+export ALTERNATE_EDITOR=emacs VISUAL="emacsclient -c"
+export GOPATH=~/.gopath
 
-[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
+[[ -s ~/.autojump/etc/prle.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
 
 # Antigen Section
 source ~/antigen.zsh
@@ -72,12 +75,24 @@ DISABLE_AUTO_TITLE=true
 ### alias section ###
 alias dusch='du -sch'
 alias mtail='multitail' 
+alias cache-search='apt-cache search'
+alias apt-update='sudo apt-get update'
+alias apt-upgrade='sudo apt-get upgrade'
 
+#tmux to ssh host and attach if possible
 function tsh {
-    ssh -t "$1" "tmux attach || tmux"
+    ssh -4 -C -c blowfish-cbc -t "$1" "tmux attach || tmux"
 }
+#mosh to host if possible, else try tsh, else ssh 
+function msh {
+    ssh mpu01 "tPmux list-sessions" 2&>1 > /dev/null && mosh "$1" -- "tmux attach" || mosh "$1" -- "tmux" || tsh "$1" || ssh -4 -C -c blowfish-cbc "$1"
+}
+#I'm used to use ssh over explicit tsh
+alias ssh=tsh
+
 #tsh uses same autocomplete as ssh
 compdef '_dispatch ssh ssh' tsh
+compdef '_dispatch ssh ssh' msh
 
 function shSpeedTest {
     yes | pv | ssh $1 "cat /dev/null" 

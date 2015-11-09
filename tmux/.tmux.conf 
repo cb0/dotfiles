@@ -70,8 +70,8 @@ bind-key C-e split-window "emacsclient -nw"
 #show man page on "C-<prefix> m"
 bind-key m command-prompt -p "man" "split-window 'exec man %%'"
 
-c0-change-interval 10
-c0-change-trigger 20
+setw -g c0-change-interval 10
+setw -g c0-change-trigger 20
 
 set -g @tpm_plugins '              \
   tmux-plugins/tpm                 \
