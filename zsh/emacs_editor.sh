@@ -4,7 +4,7 @@ FILE="`readlink -f \"$1\"`"
 PERMISSIONS=`stat "$FILE" --format "%U"`
 
 if [ $PERMISSIONS == $USER ]; then
-    emacsclient -n "$FILE"
+    emacsclient --server-file=work -c -n "$FILE"
 else
-    emacsclient -n /sudo::"$FILE"
+    emacsclient --server-file=work -c -n /sudo::"$FILE"
 fi

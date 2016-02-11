@@ -1,6 +1,12 @@
 //allow for 'contrib' stuff
 load_paths.unshift("chrome://conkeror-contrib/content/");
 
+//make session availiable
+require("session.js");
+//session_dir = /home/mpuchalla/.sessions
+//session_save_buffer_access_order = true
+//session_auto_save_auto_load = "prompt"
+
 // teach me something whenever I start my browser
 homepage = "http://en.wikipedia.org/wiki/Special:Random";
 

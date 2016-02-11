@@ -34,8 +34,9 @@ export PYTHONPATH=/home/mpuchalla/projects/ansible/lib:
 export MANPATH=/home/mpuchalla/projects/ansible/docs/man:
 export ANSIBLE_INVENTORY=~/ansible_hosts
 # what's my fav. editor
-export EDITOR=/home/mpuchalla/projects/dotfiles/zsh/emacs_editor.sh
-export ALTERNATE_EDITOR=emacs VISUAL="emacsclient -c"
+export EDITOR=emacs
+export ALTERNATE_EDITOR=emacs
+export VISUAL=emacs
 export GOPATH=~/.gopath
 
 [[ -s ~/.autojump/etc/prle.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
