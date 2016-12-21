@@ -1,19 +1,26 @@
 //allow for 'contrib' stuff
 load_paths.unshift("chrome://conkeror-contrib/content/");
 
+// teach me something whenever I start my browser
+//homepage = "http://en.wikipedia.org/wiki/Special:Random";
+
 //make session availiable
 require("session.js");
-//session_dir = /home/mpuchalla/.sessions
-//session_save_buffer_access_order = true
-//session_auto_save_auto_load = "prompt"
+// session_pref("session_auto_save_file", "auto-save");
+// session_pref("session_dir", "/home/mpuchalla/.sessions");
+// session_pref("session_save_buffer_access_order", true);
+// session_pref("session_auto_save_auto_load", "prompt");
 
-// teach me something whenever I start my browser
-homepage = "http://en.wikipedia.org/wiki/Special:Random";
+session_auto_save_file = "auto-save";
+//session_dir = "/home/mpuchalla/.sessions";
+//session_save_buffer_access_order = true;
+session_auto_save_auto_load = "prompt";
+
 
 // give me new tabs; open buffers (tabs) in the background
 require("new-tabs.js");
 require("clicks-in-new-buffer.js");
-clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND; 
+clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
 clicks_in_new_buffer_button = 1; //  midclick links in new buffers with
 
 // auto completion in the minibuffer
@@ -27,9 +34,10 @@ require("mode-line-buttons.js");
 mode_line_mode(true);
 mode_line_add_buttons(standard_mode_line_buttons, true);
 
-// we'd like to see the # of buffers being loaded 
+// we'd like to see the # of buffers being loaded
 add_hook("mode_line_hook", mode_line_adder(loading_count_widget), true);
 add_hook("mode_line_hook", mode_line_adder(buffer_count_widget), true);
+
 // we don't need a clock
 //remove_hook("mode_line_hook", mode_line_adder(clock_widget));
 
@@ -53,12 +61,11 @@ define_webjump("lkml",  "http://lkml.org");
 define_webjump("ew",    "http://emacswiki.org");
 
 define_webjump("so",    "http://stackoverflow.com/search?q=%s");
-define_webjump("yts",   "http://www.youtube.com/results?search_query=%s&aq=f");
+define_webjump("y",   "http://www.youtube.com/results?search_query=%s&aq=f");
 define_webjump("imbd",  "http://www.imdb.com/find?s=all&q=%s");g
-define_webjump("j",    "http://jira.app.activate.de/browse/http://service01.rz1.fer.xres.de/xres_fer/xadmin/%s");
 define_webjump("d",   "https://dict.leo.org/ende/index_de.html#/search=%s&searchLoc=0&resultOrder=basic&multiwordShowSingle=on");
 
-editor_shell_command = "emacsclient -c";
+editor_shell_command = "emacsclient -c ";
 
 // copy url with C-c u
 interactive("copy-url",
@@ -70,7 +77,6 @@ interactive("copy-url",
         }
 );
 define_key(default_global_keymap, "C-c u", "copy-url");
-
 
 // reload conkerorrc with C-c r
 interactive("reload-config", "reload conkerorrc",
@@ -92,7 +98,7 @@ define_key(content_buffer_normal_keymap, "C-page_up", "buffer-previous");
 define_key(default_global_keymap, "M-l", "follow-new-buffer-background");
 
 
-cwd=get_home_directory(); 
+cwd=get_home_directory();
 cwd.append("Downloads");
 
 // xkcd add mouse-over text
@@ -113,3 +119,37 @@ download_buffer_automatic_open_target=OPEN_NEW_BUFFER_BACKGROUND;
            });
 
 can_kill_last_buffer = false;
+
+
+//fake user agent for amazon music
+require("user-agent-policy");
+user_agent_policy.define_policy(
+    "default",
+    "user_agent_firefox()",
+    ".*\.showuseragent"
+    );
+
+session_pref("general.useragent.compatMode.firefox", true);
+
+require("100-login.js");
+require("200-work.js");
+require("300-jumps.js");
+
+
+
+// javascript:(function(){
+
+// var url = location.href;var title = document.title || url;window.open('https://shaarli.0xcb0.com/?post=' + encodeURIComponent(url)+'&title=' + encodeURIComponent(title)+'&description=' + encodeURIComponent(document.getSelection())+'&source=bookmarklet','_blank','menubar=no,height=390,width=600,toolbar=no,scrollbars=no,status=no,dialog=1');})();");
+
+define_variable("firebug_url",
+    "http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js");
+
+function firebug (I) {
+    var doc = I.buffer.document;
+    var script = doc.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('src', firebug_url);
+    script.setAttribute('onload', 'firebug.init();');
+    doc.body.appendChild(script);
+}
+interactive("firebug", "open firebug lite", firebug);

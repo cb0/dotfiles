@@ -29,7 +29,7 @@ source $ZSH/oh-my-zsh.sh
 
 # wheres my path at
 xulrunnerPath=/home/mpuchalla/projects/xulrunner/
-export PATH="/home/mpuchalla/projects/ansible/bin:/home/mpuchalla/.autojump/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mpuchalla/bin:$xulrunnerPath"
+export PATH="/home/mpuchalla/projects/ansible/bin:/home/mpuchalla/projects/dasht/bin:/home/mpuchalla/.autojump/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mpuchalla/bin:$xulrunnerPath"
 export PYTHONPATH=/home/mpuchalla/projects/ansible/lib:
 export MANPATH=/home/mpuchalla/projects/ansible/docs/man:
 export ANSIBLE_INVENTORY=~/ansible_hosts
@@ -38,6 +38,9 @@ export EDITOR=emacs
 export ALTERNATE_EDITOR=emacs
 export VISUAL=emacs
 export GOPATH=~/.gopath
+
+#dasht completion
+source /home/mpuchalla/projects/dasht/etc/zsh/completions.zsh
 
 [[ -s ~/.autojump/etc/prle.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
 
@@ -82,7 +85,7 @@ alias apt-upgrade='sudo apt-get upgrade'
 
 #tmux to ssh host and attach if possible
 function tsh {
-    ssh -4 -C -c blowfish-cbc -t "$1" "tmux attach || tmux"
+    ssh -4 -C -t "$1" "tmux attach || tmux"
 }
 #mosh to host if possible, else try tsh, else ssh 
 function msh {
@@ -132,3 +135,8 @@ vs(){ vagrant ssh $(vagrant_list);}
 vup(){ vagrant up $(vagrant_list);}
 vhalt() { vagrant halt $(vagrant_list);}
 
+export WECHALLUSER="cb0"
+export WECHALLTOKEN="231AB-042DE-A3D81-FB67D-949A1-60091"
+
+export PHPBREW_SET_PROMPT=1
+source /home/mpuchalla/.phpbrew/bashrc

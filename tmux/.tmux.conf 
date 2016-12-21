@@ -5,13 +5,26 @@ bind | split-window -h
 bind - split-window -v
 bind C-y set-window-option synchronize-panes
 
-# Set status bar
-set -g status-bg black
-set -g status-fg white
-set -g status-left '#[fg=green] #H '
-set -g status-right-length 200
-set -g status-right '#S #[fg=green,bg=black]#(tmux-mem-cpu-load --colors --interval 2) Online: #{online_status} | #[fg=yellow]#(uptime) | #[fg=black,bg=orange] %A %d %h %H:%M (KW:%W)'
-set -g status-interval 2
+# # Set status bar
+# set-option -g status-position top
+# set -g status-bg black
+# set -g status-fg white
+# set -g status-left '#[fg=green] #H '
+# set -g status-right-length 200
+# set -g status-right '#S Continuum: #{continuum_status} #[fg=green,bg=black]#(tmux-mem-cpu-load --colors --interval 2) Online: #{online_status} | #[fg=yellow]#(uptime) | #[fg=black,bg=orange] %A %d %h %H:%M (KW:%W)'
+# set -g status-interval 2
+
+TMUX_POWERLINE_SEG_WEATHER_LOCATION=671072
+
+set-option -g status-position bottom
+set-option -g status on
+set-option -g status-interval 2
+set-option -g status-utf8 on
+set-option -g status-justify "centre"
+set-option -g status-left-length 60
+set-option -g status-right-length 90
+set-option -g status-left "#(/home/mpuchalla/projects/tmux-powerline/powerline.sh left)"
+set-option -g status-right "#(/home/mpuchalla/projects/tmux-powerline/powerline.sh right)"
 
 # Highlight active window
 set-window-option -g window-status-current-bg red
