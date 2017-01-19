@@ -12,16 +12,16 @@ require("session.js");
 // session_pref("session_auto_save_auto_load", "prompt");
 
 session_auto_save_file = "auto-save";
-//session_dir = "/home/mpuchalla/.sessions";
-//session_save_buffer_access_order = true;
+// session_dir = "/home/mpuchalla/.sessions";
+// session_save_buffer_access_order = true;
 session_auto_save_auto_load = "prompt";
 
 
 // give me new tabs; open buffers (tabs) in the background
-require("new-tabs.js");
-require("clicks-in-new-buffer.js");
-clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
-clicks_in_new_buffer_button = 1; //  midclick links in new buffers with
+// require("new-tabs.js");
+// require("clicks-in-new-buffer.js");
+// clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
+// clicks_in_new_buffer_button = 1; //  midclick links in new buffers with
 
 // auto completion in the minibuffer
 minibuffer_auto_complete_default = true;
@@ -53,7 +53,6 @@ for (let i = 0; i < 10; ++i) {
     define_switch_buffer_key(String((i+1)%10), i);
 }
 
-
 // some bookmarks
 define_webjump("conk",  "http://conkeror.org");
 define_webjump("efu",   "http://emacs-fu.blogspot.com");
@@ -62,10 +61,12 @@ define_webjump("ew",    "http://emacswiki.org");
 
 define_webjump("so",    "http://stackoverflow.com/search?q=%s");
 define_webjump("y",   "http://www.youtube.com/results?search_query=%s&aq=f");
-define_webjump("imbd",  "http://www.imdb.com/find?s=all&q=%s");g
+define_webjump("imbd",  "http://www.imdb.com/find?s=all&q=%s");
 define_webjump("d",   "https://dict.leo.org/ende/index_de.html#/search=%s&searchLoc=0&resultOrder=basic&multiwordShowSingle=on");
 
 editor_shell_command = "emacsclient -c ";
+
+
 
 // copy url with C-c u
 interactive("copy-url",
@@ -134,6 +135,7 @@ session_pref("general.useragent.compatMode.firefox", true);
 require("100-login.js");
 require("200-work.js");
 require("300-jumps.js");
+require("400-development.js");
 
 
 
@@ -153,3 +155,4 @@ function firebug (I) {
     doc.body.appendChild(script);
 }
 interactive("firebug", "open firebug lite", firebug);
+
