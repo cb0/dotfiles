@@ -1,8 +1,82 @@
+// // add_hook("make_window_hook",
+// // function (buffer)
+// // {
+// // shell_command(
+// // "/home/mpuchalla/projects/dotfiles/conkeror/tangle.sh",
+// // $fds = [{ output: async_binary_string_writer("") },
+// // { input: async_binary_reader(function (s) data+=s||"") },
+// // { input: async_binary_reader(function (s) error+=s||"") }]);
+// // });
+
+// interactive("tangle",
+// 	    "Create the actual init file. "+
+// 	    "Requires at least emacs24.",
+// 	    function (I) {
+// 		var data = "", error = "";
+// 		var result = yield shell_command(
+// 		    "/home/mpuchalla/projects/dotfiles/conkeror/tangle.sh",
+// 		    $fds = [{ output: async_binary_string_writer("") },
+// 			    { input: async_binary_reader(function (s) data+=s||"") },
+// 			    { input: async_binary_reader(function (s) error+=s||"") }]);
+// 		if (result != 0 || error != "")
+// 		    throw new interactive_error("status "+result+", "+error);
+// 		var uri = "data:text;base64,"+btoa(data);
+// 		browser_object_follow(I.buffer, OPEN_NEW_BUFFER, load_spec({ uri: uri }));
+// 	    });
+
+// // function tangle() {
+//     // var data = "";
+//     // var error = "";
+//     // shell_command(
+//     // "/home/mpuchalla/projects/dotfiles/conkeror/tangle.sh",
+//     // $fds = [{ output: async_binary_string_writer("") },
+//             // { input: async_binary_reader(function (s) data+=s||"") },
+//             // { input: async_binary_reader(function (s) error+=s||"") }]);
+
+// // }
+
+// shell_command(
+// 		    "/home/mpuchalla/projects/dotfiles/conkeror/tangle.sh",
+// 		    $fds = [{ output: async_binary_string_writer("") },
+// 			    { input: async_binary_reader(function (s) data+=s||"") },
+// 			    { input: async_binary_reader(function (s) error+=s||"") }]);
+
+// javascript:(function(){
+//     tangle();
+//     console.log("fooO");
+//     require("main-org.javascript");
+// });
+
+// // tangle();
+
+
+
 //allow for 'contrib' stuff
 load_paths.unshift("chrome://conkeror-contrib/content/");
 
 // teach me something whenever I start my browser
 //homepage = "http://en.wikipedia.org/wiki/Special:Random";
+
+//try, at least try to prevent webpages from stealing my focus
+require("block-content-focus-change.js");
+block_content_focus_change_duration = 40;
+function focusblock (buffer) {
+    var s = Components.utils.Sandbox(buffer.top_frame);
+    s.document = buffer.document.wrappedJSObject;
+    Components.utils.evalInSandbox(
+        "(function () {\
+            function nothing () {}\
+            if (! document.forms)\
+                return;\
+            for (var i = 0, nforms = document.forms.length; i < nforms; i++) {\
+              for (var j = 0, nels = document.forms[i].elements.length; j < nels; j++)\
+                document.forms[i].elements[j].focus = nothing;\
+            }\
+          })();",
+        s);
+}
+add_hook('content_buffer_progress_change_hook', focusblock);
+
 
 //make session availiable
 require("session.js");
@@ -18,10 +92,10 @@ session_auto_save_auto_load = "prompt";
 
 
 // give me new tabs; open buffers (tabs) in the background
-// require("new-tabs.js");
-// require("clicks-in-new-buffer.js");
-// clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
-// clicks_in_new_buffer_button = 1; //  midclick links in new buffers with
+require("new-tabs.js");
+require("clicks-in-new-buffer.js");
+clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
+clicks_in_new_buffer_button = 1; //  midclick links in new buffers with
 
 // auto completion in the minibuffer
 minibuffer_auto_complete_default = true;
@@ -65,8 +139,6 @@ define_webjump("imbd",  "http://www.imdb.com/find?s=all&q=%s");
 define_webjump("d",   "https://dict.leo.org/ende/index_de.html#/search=%s&searchLoc=0&resultOrder=basic&multiwordShowSingle=on");
 
 editor_shell_command = "emacsclient -c ";
-
-
 
 // copy url with C-c u
 interactive("copy-url",
