@@ -40,20 +40,20 @@ bind-key j command-prompt -p "join pane from:"  "join-pane -s '%%'"
 bind-key s command-prompt -p "send pane to:"  "join-pane -t '%%'"
 
 #set mouse integration to the minimum
-set-option mouse-resize-pane on
-set-option mouse-select-pane on
-set-option mouse-select-window on
+# set-option mouse-resize-pane on
+#set-option mouse-select-pane on
+#set-option mouse-select-window on
 
 #ignore bell in all windows other than current
-set-option bell-action current
+# set-option bell-action current
 
 #set border style
-set-option pane-active-border-style fg=red,bold,reverse,bg=white,blink
-set-option pane-active-border-style fg=red,bold,reverse,bg=white,blink
+# set-option pane-active-border-style fg=red,bold,reverse,bg=white,blink
+# set-option pane-active-border-style fg=red,bold,reverse,bg=white,blink
 
 #set history limit
-set-option history-limit 1000000
-set-option status-interval 
+# set-option history-limit 1000000
+# set-option status-interval 
 
 
 #huge thanks to http://perlstalker.vuser.org/blog/2012/10/16/emacsclient-and-tmux/ for inspiration
@@ -68,14 +68,15 @@ bind-key C-e split-window "emacsclient -nw"
 #show man page on "C-<prefix> m"
 bind-key m command-prompt -p "man" "split-window 'exec man %%'"
 
-set -g @tpm_plugins '              \
-  tmux-plugins/tpm                 \
-  tmux-plugins/tmux-sensible       \
-  tmux-plugins/tmux-yank       	   \
-  tmux-plugins/tmux-copycat	   \
-  tmux-plugins/tmux-resurrect      \
-  tmux-plugins/tmux-online-status  \
-  tmux-plugins/tmux-sessionist     \
-'
+# set -g @tpm_plugins '              \
+  # tmux-plugins/tmux-splitter       \
+  # tmux-plugins/tpm                 \
+  # tmux-plugins/tmux-sensible       \
+  # tmux-plugins/tmux-yank       	   \
+#  tmux-plugins/tmux-copycat	   \
+  # tmux-plugins/tmux-resurrect      \
+  # tmux-plugins/tmux-online-status  \
+  # tmux-plugins/tmux-sessionist     \
+# '
 #tmux new-session
 run-shell '~/.tmux/plugins/tpm/tpm'
